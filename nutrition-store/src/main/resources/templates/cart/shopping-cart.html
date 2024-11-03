@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito de Compras - Nutrition Store</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        .btn-primary {
+            background-color: #FF6B00;
+        }
+        .btn-primary:hover {
+            background-color: #FF8533;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-2xl font-bold mb-8">Tu Carrito</h1>
+        
+        <div class="flex flex-col md:flex-row gap-4">
+            <!-- Lista de productos -->
+            <div class="md:w-3/4">
+                <div class="bg-white rounded-lg shadow-md p-6 mb-4">
+                    <table class="w-full">
+                        <thead>
+                            <tr class="border-b">
+                                <th class="text-left py-2">Producto</th>
+                                <th class="text-center py-2">Cantidad</th>
+                                <th class="text-right py-2">Precio</th>
+                                <th class="text-right py-2">Total</th>
+                                <th class="text-right py-2">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cart-items">
+                            <!-- Los items del carrito se insertarán aquí dinámicamente -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Resumen del carrito -->
+            <div class="md:w-1/4">
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h2 class="text-lg font-bold mb-4">Resumen del Carrito</h2>
+                    <div class="flex justify-between mb-2">
+                        <span>Subtotal</span>
+                        <span id="subtotal">$0.00</span>
+                    </div>
+                    <div class="flex justify-between mb-2">
+                        <span>IVA (16%)</span>
+                        <span id="tax">$0.00</span>
+                    </div>
+                    <div class="border-t pt-2 mt-2">
+                        <div class="flex justify-between mb-2">
+                            <span class="font-bold">Total</span>
+                            <span id="total" class="font-bold">$0.00</span>
+                        </div>
+                    </div>
+                    <button onclick="window.location.href='/checkout'" 
+                            class="w-full btn-primary text-white py-2 px-4 rounded-md mt-4">
+                        Proceder al Pago
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Función para cargar los items del carrito
+        function loadCartItems() {
+            // Aquí iría la lógica para cargar los items desde el localStorage o una API
+            const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+            const cartContainer = document.getElementById('cart-items');
+            let subtotal = 0;
+
+            cartContainer.innerHTML = cartItems.map(item => {
+                const itemTotal = item.price * item.quantity;
+                subtotal += itemTotal;
+                return `
+                    <tr class="border-b">
+                        <td class="py-4">
+                            <div class="flex items-center">
+                                <img src="${item.image}" alt="${item.name}" class="h-16 w-16 object-cover rounded">
+                                <div class="ml-4">
+                                    <h3 class="font-medium">${item.name}</h3>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="text-center">
+                            <div class="flex items-center justify-center">
+                                <button onclick="updateQuantity(${item.id}, -1)" class="px-2">-</button>
+                                <span class="mx-2">${item.quantity}</span>
+                                <button onclick="updateQuantity(${item.id}, 1)" class="px-2">+</button>
+                            </div>
+                        </td>
+                        <td class="text-right">$${item.price.toFixed(2)}</td>
+                        <td class="text-right">$${itemTotal.toFixed(2)}</td>
+                        <td class="text-right">
+                            <button onclick="removeItem(${item.id})" class="text-red-500">
+                                Eliminar
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+
+            updateCartTotals(subtotal);
+        }
+
+        function updateCartTotals(subtotal) {
+            const tax = subtotal * 0.16;
+            const total = subtotal + tax;
+
+            document.getElementById('subtotal').textContent = `$${subtotal.toFixed(2)}`;
+            document.getElementById('tax').textContent = `$${tax.toFixed(2)}`;
+            document.getElementById('total').textContent = `$${total.toFixed(2)}`;
+        }
+
+        // Cargar items al iniciar la página
+        document.addEventListener('DOMContentLoaded', loadCartItems);
+    </script>
+</body>
+</html>
