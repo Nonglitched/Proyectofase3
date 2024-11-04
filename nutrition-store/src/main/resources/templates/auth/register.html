@@ -4,17 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro - Nutrition Store</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
-    <style>
-        .btn-primary {
-            background-color: #FF6B00;
-        }
-        .btn-primary:hover {
-            background-color: #FF8533;
-        }
-    </style>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/nutrition-store/src/main/resources/static/css/style.css">
 </head>
 <body class="bg-gray-100">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">Nutrition Store</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/nutrition-store/src/main/resources/templates/products/product-form.html">Productos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/nutrition-store/src/main/resources/templates/aboutus.html">Nosotros</a>
+                    </li>
+                </ul>
+                <div class="d-flex">
+                    <a href="/nutrition-store/src/main/resources/templates/cart/shopping-cart.html" class="btn btn-outline-light me-2">
+                        <i class="bi bi-cart"></i> Carrito
+                    </a>
+                    <a href="/nutrition-store/src/main/resources/templates/auth/login.html" class="btn btn-light me-2">Iniciar Sesión</a>
+                    <a href="/nutrition-store/src/main/resources/templates/auth/register.html" class="btn btn-primary">Registrarse</a>
+                </div>
+            </div>
+        </div>
+    </nav>
     <div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div class="max-w-md w-full bg-white rounded-lg shadow-md p-8">
             <div class="text-center">
@@ -51,12 +69,38 @@
             <div class="mt-6 text-center">
                 <p class="text-sm text-gray-600">
                     ¿Ya tienes una cuenta? 
-                    <a href="/login" class="font-medium text-orange-600 hover:text-orange-500">
+                    <a href="/nutrition-store/src/main/resources/templates/auth/login.html" class="font-medium text-orange-600 hover:text-orange-500">
                         Inicia sesión
                     </a>
                 </p>
             </div>
         </div>
     </div>
+    <footer class="bg-dark text-light py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>Nutrition Store</h5>
+                    <p>Tu tienda de confianza para productos nutricionales</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Enlaces Rápidos</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="/nutrition-store/src/main/resources/templates/products/product-form.html" class="text-light">Productos</a></li>
+                        <li><a href="/nutrition-store/src/main/resources/templates/aboutus.html" class="text-light">Sobre Nosotros</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Contacto</h5>
+                    <ul class="list-unstyled">
+                        <li>Email: info@nutritionstore.com</li>
+                        <li>Teléfono: (123) 456-7890</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+      <script src="../../static/js/main.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

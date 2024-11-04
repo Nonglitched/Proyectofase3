@@ -4,22 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carrito de Compras - Nutrition Store</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
-    <style>
-        .btn-primary {
-            background-color: #FF6B00;
-        }
-        .btn-primary:hover {
-            background-color: #FF8533;
-        }
-    </style>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/nutrition-store/src/main/resources/static/css/style.css">
 </head>
 <body class="bg-gray-100">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">Nutrition Store</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/nutrition-store/src/main/resources/templates/products/product-form.html">Productos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/nutrition-store/src/main/resources/templates/aboutus.html">Nosotros</a>
+                    </li>
+                </ul>
+                <div class="d-flex">
+                    <a href="/nutrition-store/src/main/resources/templates/cart/shopping-cart.html" class="btn btn-outline-light me-2">
+                        <i class="bi bi-cart"></i> Carrito
+                    </a>
+                    <a href="/nutrition-store/src/main/resources/templates/auth/login.html" class="btn btn-light me-2">Iniciar Sesión</a>
+                    <a href="/nutrition-store/src/main/resources/templates/auth/register.html" class="btn btn-primary">Registrarse</a>
+                </div>
+            </div>
+        </div>
+    </nav>
     <div class="container mx-auto px-4 py-8">
         <h1 class="text-2xl font-bold mb-8">Tu Carrito</h1>
         
         <div class="flex flex-col md:flex-row gap-4">
-            <!-- Lista de productos -->
             <div class="md:w-3/4">
                 <div class="bg-white rounded-lg shadow-md p-6 mb-4">
                     <table class="w-full">
@@ -33,13 +50,11 @@
                             </tr>
                         </thead>
                         <tbody id="cart-items">
-                            <!-- Los items del carrito se insertarán aquí dinámicamente -->
                         </tbody>
                     </table>
                 </div>
             </div>
 
-            <!-- Resumen del carrito -->
             <div class="md:w-1/4">
                 <div class="bg-white rounded-lg shadow-md p-6">
                     <h2 class="text-lg font-bold mb-4">Resumen del Carrito</h2>
@@ -64,61 +79,32 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <script>
-        // Función para cargar los items del carrito
-        function loadCartItems() {
-            // Aquí iría la lógica para cargar los items desde el localStorage o una API
-            const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-            const cartContainer = document.getElementById('cart-items');
-            let subtotal = 0;
-
-            cartContainer.innerHTML = cartItems.map(item => {
-                const itemTotal = item.price * item.quantity;
-                subtotal += itemTotal;
-                return `
-                    <tr class="border-b">
-                        <td class="py-4">
-                            <div class="flex items-center">
-                                <img src="${item.image}" alt="${item.name}" class="h-16 w-16 object-cover rounded">
-                                <div class="ml-4">
-                                    <h3 class="font-medium">${item.name}</h3>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="text-center">
-                            <div class="flex items-center justify-center">
-                                <button onclick="updateQuantity(${item.id}, -1)" class="px-2">-</button>
-                                <span class="mx-2">${item.quantity}</span>
-                                <button onclick="updateQuantity(${item.id}, 1)" class="px-2">+</button>
-                            </div>
-                        </td>
-                        <td class="text-right">$${item.price.toFixed(2)}</td>
-                        <td class="text-right">$${itemTotal.toFixed(2)}</td>
-                        <td class="text-right">
-                            <button onclick="removeItem(${item.id})" class="text-red-500">
-                                Eliminar
-                            </button>
-                        </td>
-                    </tr>
-                `;
-            }).join('');
-
-            updateCartTotals(subtotal);
-        }
-
-        function updateCartTotals(subtotal) {
-            const tax = subtotal * 0.16;
-            const total = subtotal + tax;
-
-            document.getElementById('subtotal').textContent = `$${subtotal.toFixed(2)}`;
-            document.getElementById('tax').textContent = `$${tax.toFixed(2)}`;
-            document.getElementById('total').textContent = `$${total.toFixed(2)}`;
-        }
-
-        // Cargar items al iniciar la página
-        document.addEventListener('DOMContentLoaded', loadCartItems);
-    </script>
+    </div> 
+    <footer class="bg-dark text-light py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>Nutrition Store</h5>
+                    <p>Tu tienda de confianza para productos nutricionales</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Enlaces Rápidos</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="/nutrition-store/src/main/resources/templates/products/product-form.html" class="text-light">Productos</a></li>
+                        <li><a href="/nutrition-store/src/main/resources/templates/aboutus.html" class="text-light">Sobre Nosotros</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Contacto</h5>
+                    <ul class="list-unstyled">
+                        <li>Email: info@nutritionstore.com</li>
+                        <li>Teléfono: (123) 456-7890</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+      <script src="../../static/js/main.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

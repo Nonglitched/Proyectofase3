@@ -12,6 +12,7 @@ import com.nutrition.store.nutrition_store.dto.RegisterRequest;
 import com.nutrition.store.nutrition_store.entities.Role;
 import com.nutrition.store.nutrition_store.entities.user;
 import com.nutrition.store.nutrition_store.repository.UserRepository;
+import com.nutrition.store.nutrition_store.security.JwtService;
 
 @Service
 public class AuthenticationService {
@@ -22,7 +23,7 @@ public class AuthenticationService {
     private PasswordEncoder passwordEncoder;
     
     @Autowired
-    private jwtService jwtService;
+    private JwtService jwtService;
     
     @Autowired
     private AuthenticationManager authenticationManager;

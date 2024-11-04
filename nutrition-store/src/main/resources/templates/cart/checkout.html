@@ -4,25 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checkout - Nutrition Store</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
-    <style>
-        .btn-primary {
-            background-color: #FF6B00;
-        }
-        .btn-primary:hover {
-            background-color: #FF8533;
-        }
-    </style>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/nutrition-store/src/main/resources/static/css/style.css">
 </head>
 <body class="bg-gray-100">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">Nutrition Store</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/nutrition-store/src/main/resources/templates/products/product-form.html">Productos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/nutrition-store/src/main/resources/templates/aboutus.html">Nosotros</a>
+                    </li>
+                </ul>
+                <div class="d-flex">
+                    <a href="/nutrition-store/src/main/resources/templates/cart/shopping-cart.html" class="btn btn-outline-light me-2">
+                        <i class="bi bi-cart"></i> Carrito
+                    </a>
+                    <a href="/nutrition-store/src/main/resources/templates/auth/login.html" class="btn btn-light me-2">Iniciar Sesión</a>
+                    <a href="/nutrition-store/src/main/resources/templates/auth/register.html" class="btn btn-primary">Registrarse</a>
+                </div>
+            </div>
+        </div>
+    </nav>
     <div class="container mx-auto px-4 py-8">
         <h1 class="text-2xl font-bold mb-8">Finalizar Compra</h1>
 
         <div class="flex flex-col md:flex-row gap-4">
-            <!-- Formulario de envío y pago -->
             <div class="md:w-2/3">
                 <form id="checkout-form" class="space-y-6">
-                    <!-- Información de envío -->
                     <div class="bg-white rounded-lg shadow-md p-6">
                         <h2 class="text-xl font-bold mb-4">Información de Envío</h2>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -63,8 +79,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- Información de pago -->
                     <div class="bg-white rounded-lg shadow-md p-6">
                         <h2 class="text-xl font-bold mb-4">Información de Pago</h2>
                         <div class="space-y-4">
@@ -93,12 +107,10 @@
                 </form>
             </div>
 
-            <!-- Resumen del pedido -->
             <div class="md:w-1/3">
                 <div class="bg-white rounded-lg shadow-md p-6">
                     <h2 class="text-xl font-bold mb-4">Resumen del Pedido</h2>
                     <div id="order-items" class="space-y-4">
-                        <!-- Los items se insertarán aquí dinámicamente -->
                     </div>
                     <div class="border-t mt-4 pt-4">
                         <div class="flex justify-between mb-2">
@@ -126,56 +138,31 @@
             </div>
         </div>
     </div>
-
-    <script>
-        function loadOrderSummary() {
-            const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-            const orderItemsContainer = document.getElementById('order-items');
-            let subtotal = 0;
-
-            orderItemsContainer.innerHTML = cartItems.map(item => {
-                const itemTotal = item.price * item.quantity;
-                subtotal += itemTotal;
-                return `
-                    <div class="flex justify-between">
-                        <div>
-                            <p class="font-medium">${item.name}</p>
-                            <p class="text-sm text-gray-600">Cantidad: ${item.quantity}</p>
-                        </div>
-                        <span>$${itemTotal.toFixed(2)}</span>
-                    </div>
-                `;
-            }).join('');
-
-            updateOrderTotals(subtotal);
-        }
-
-        function updateOrderTotals(subtotal) {
-            const shipping = 10.00; // Costo fijo de envío
-            const tax = subtotal * 0.16;
-            const total = subtotal + shipping + tax;
-
-            document.getElementById('subtotal').textContent = `$${subtotal.toFixed(2)}`;
-            document.getElementById('shipping').textContent = `$${shipping.toFixed(2)}`;
-            document.getElementById('tax').textContent = `$${tax.toFixed(2)}`;
-            document.getElementById('total').textContent = `$${total.toFixed(2)}`;
-        }
-
-        function processOrder() {
-            // Aquí iría la lógica para procesar el pedido
-            const form = document.getElementById('checkout-form');
-            if (form.checkValidity()) {
-                // Enviar datos al servidor
-                alert('¡Pedido realizado con éxito!');
-                localStorage.removeItem('cartItems');
-                window.location.href = '/order-confirmation';
-            } else {
-                form.reportValidity();
-            }
-        }
-
-        // Cargar resumen al iniciar la página
-        document.addEventListener('DOMContentLoaded', loadOrderSummary);
-    </script>
+    <footer class="bg-dark text-light py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>Nutrition Store</h5>
+                    <p>Tu tienda de confianza para productos nutricionales</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Enlaces Rápidos</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="/nutrition-store/src/main/resources/templates/products/product-form.html" class="text-light">Productos</a></li>
+                        <li><a href="/nutrition-store/src/main/resources/templates/aboutus.html" class="text-light">Sobre Nosotros</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Contacto</h5>
+                    <ul class="list-unstyled">
+                        <li>Email: info@nutritionstore.com</li>
+                        <li>Teléfono: (123) 456-7890</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+      <script src="../../static/js/main.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

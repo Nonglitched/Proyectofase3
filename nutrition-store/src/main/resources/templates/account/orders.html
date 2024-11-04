@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Orders</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/nutrition-store/src/main/resources/static/css/style.css">
+</head>
+<body class="bg-gray-100 font-sans">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="/">Nutrition Store</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/nutrition-store/src/main/resources/templates/products/product-form.html">Productos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/nutrition-store/src/main/resources/templates/aboutus.html">Nosotros</a>
+                </li>
+            </ul>
+            <div class="d-flex">
+                <a href="/nutrition-store/src/main/resources/templates/cart/shopping-cart.html" class="btn btn-outline-light me-2">
+                    <i class="bi bi-cart"></i> Carrito
+                </a>
+                <a href="/nutrition-store/src/main/resources/templates/auth/login.html" class="btn btn-light me-2">Iniciar Sesión</a>
+                <a href="/nutrition-store/src/main/resources/templates/auth/register.html" class="btn btn-primary">Registrarse</a>
+            </div>
+        </div>
+    </div>
+</nav>
+  <div class="container mx-auto my-8">
+    <h1 class="text-3xl font-bold mb-4">Orders</h1>
+
+    <div class="bg-white shadow-md rounded-lg p-6 mb-4">
+      <h2 class="text-xl font-bold mb-4">New Order</h2>
+      <form id="newOrderForm" class="space-y-4">
+        <div>
+          <label for="customer" class="block font-medium mb-1">Customer</label>
+          <select id="customer" name="customer" class="w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+          </select>
+        </div>
+        <div>
+          <label for="products" class="block font-medium mb-1">Products</label>
+          <div id="products" class="space-y-2"></div>
+          <button type="button" onclick="addProduct()" class="text-indigo-600 hover:text-indigo-900 font-medium">Add Product</button>
+        </div>
+        <div class="flex justify-end">
+          <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700">Create Order</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="bg-white shadow-md rounded-lg p-6">
+      <h2 class="text-xl font-bold mb-4">Order List</h2>
+      <table class="w-full">
+        <thead>
+          <tr class="bg-gray-200">
+            <th class="px-4 py-2 text-left">Order ID</th>
+            <th class="px-4 py-2 text-left">Customer</th>
+            <th class="px-4 py-2 text-left">Date</th>
+            <th class="px-4 py-2 text-left">Status</th>
+            <th class="px-4 py-2 text-left">Total</th>
+            <th class="px-4 py-2 text-left">Action</th>
+          </tr>
+        </thead>
+        <tbody id="ordersList"></tbody>
+      </table>
+    </div>
+  </div>
+  <footer class="bg-dark text-light py-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h5>Nutrition Store</h5>
+                <p>Tu tienda de confianza para productos nutricionales</p>
+            </div>
+            <div class="col-md-4">
+                <h5>Enlaces Rápidos</h5>
+                <ul class="list-unstyled">
+                    <li><a href="/nutrition-store/src/main/resources/templates/products/product-form.html" class="text-light">Productos</a></li>
+                    <li><a href="/nutrition-store/src/main/resources/templates/aboutus.html" class="text-light">Sobre Nosotros</a></li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <h5>Contacto</h5>
+                <ul class="list-unstyled">
+                    <li>Email: info@nutritionstore.com</li>
+                    <li>Teléfono: (123) 456-7890</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+  <script src="../../static/js/main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

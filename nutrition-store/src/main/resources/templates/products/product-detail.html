@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle del Producto - Nutrition Store</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="/nutrition-store/src/main/resources/static/css/style.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">Nutrition Store</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/nutrition-store/src/main/resources/templates/products/product-form.html">Productos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/nutrition-store/src/main/resources/templates/aboutus.html">Nosotros</a>
+                    </li>
+                </ul>
+                <div class="d-flex">
+                    <a href="/nutrition-store/src/main/resources/templates/cart/shopping-cart.html" class="btn btn-outline-light me-2">
+                        <i class="bi bi-cart"></i> Carrito
+                    </a>
+                    <a href="/nutrition-store/src/main/resources/templates/auth/login.html" class="btn btn-light me-2">Iniciar Sesión</a>
+                    <a href="/nutrition-store/src/main/resources/templates/auth/register.html" class="btn btn-primary">Registrarse</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-5">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Inicio</a></li>
+                <li class="breadcrumb-item"><a href="/products/product-form.html">Productos</a></li>
+                <li class="breadcrumb-item active" aria-current="page" th:text="${producto.nombreProducto}">Nombre del Producto</li>
+            </ol>
+        </nav>
+
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <div class="card border-0">
+                    <img src="/api/placeholder/600/600" th:if="${producto.imagen == null}" class="card-img-top rounded" alt="Producto">
+                    <img th:if="${producto.imagen != null}" th:src="${producto.imagen}" class="card-img-top rounded" th:alt="${producto.nombreProducto}">
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <h1 class="mb-3" th:text="${producto.nombreProducto}">Nombre del Producto</h1>
+                
+                <div class="mb-4">
+                    <span class="h3" th:if="${producto.descuento == null || producto.descuento == 0}" th:text="${'$' + #numbers.formatDecimal(producto.precio, 0, 'COMMA', 2, 'POINT')}">$99.99</span>
+                    
+                    <div th:if="${producto.descuento != null && producto.descuento > 0}" class="d-flex align-items-center gap-2">
+                        <span class="h3 text-danger" th:text="${'$' + #numbers.formatDecimal(producto.precio * (1 - producto.descuento/100), 0, 'COMMA', 2, 'POINT')}">$79.99</span>
+                        <span class="text-decoration-line-through text-muted" th:text="${'$' + #numbers.formatDecimal(producto.precio, 0, 'COMMA', 2, 'POINT')}">$99.99</span>
+                        <span class="badge bg-danger" th:text="${producto.descuento + '% OFF'}">20% OFF</span>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <span th:if="${!producto.vendido}" class="badge bg-success">En Stock</span>
+                    <span th:if="${producto.vendido}" class="badge bg-danger">Agotado</span>
+                </div>
+                <form th:if="${!producto.vendido}" action="/cart/add" method="POST" class="mb-4">
+                    <input type="hidden" name="productoId" th:value="${producto.id}">
+                    <div class="row g-3">
+                        <div class="col-auto">
+                            <select class="form-select" name="cantidad" id="cantidad">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                        <div class="col">
+                            <button type="submit" class="btn btn-primary w-100">
+                                <i class="bi bi-cart-plus"></i> Agregar al Carrito
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <div class="card border-0 bg-light">
+                    <div class="card-body">
+                        <h5 class="card-title">Características del producto</h5>
+                        <ul class="list-unstyled mb-0">
+                            <li class="mb-2">
+                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                Producto de alta calidad
+                            </li>
+                            <li class="mb-2">
+                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                Envío seguro
+                            </li>
+                            <li>
+                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                Garantía de satisfacción
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="bg-dark text-light py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>Nutrition Store</h5>
+                    <p>Tu tienda de confianza para productos nutricionales</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Enlaces Rápidos</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="/nutrition-store/src/main/resources/templates/products/product-form.html" class="text-light">Productos</a></li>
+                        <li><a href="/nutrition-store/src/main/resources/templates/aboutus.html" class="text-light">Sobre Nosotros</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Contacto</h5>
+                    <ul class="list-unstyled">
+                        <li>Email: info@nutritionstore.com</li>
+                        <li>Teléfono: (123) 456-7890</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="../../static/js/main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

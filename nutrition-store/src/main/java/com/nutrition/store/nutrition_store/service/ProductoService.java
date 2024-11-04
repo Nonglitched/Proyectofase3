@@ -8,6 +8,7 @@ public interface ProductoService {
     Producto save(Producto producto);
     Optional<Producto> findById(Long id);
     List<Producto> findAll();
-    List<Producto> findByCategoria(Long categoriaId);
     void delete(Long id);
+    List<Producto> findWithFilters(String nombreProducto, Double precio, Integer descuento, Boolean vendido);
 }
+

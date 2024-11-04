@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Producto</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/nutrition-store/src/main/resources/static/css/style.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">Nutrition Store</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/nutrition-store/src/main/resources/templates/products/product-form.html">Productos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/nutrition-store/src/main/resources/templates/aboutus.html">Nosotros</a>
+                    </li>
+                </ul>
+                <div class="d-flex">
+                    <a href="/nutrition-store/src/main/resources/templates/cart/shopping-cart.html" class="btn btn-outline-light me-2">
+                        <i class="bi bi-cart"></i> Carrito
+                    </a>
+                    <a href="/nutrition-store/src/main/resources/templates/auth/login.html" class="btn btn-light me-2">Iniciar Sesión</a>
+                    <a href="/nutrition-store/src/main/resources/templates/auth/register.html" class="btn btn-primary">Registrarse</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="container mt-4">
+        <h2 th:text="${producto.id == null ? 'Nuevo Producto' : 'Editar Producto'}"></h2>
+        
+        <form th:action="${producto.id == null ? '/productos/nuevo' : '/productos/editar/' + producto.id}"
+              th:object="${producto}" method="post" class="mt-4">
+            <input type="hidden" th:field="*{id}">
+            
+            <div class="mb-3">
+                <label for="nombreProducto" class="form-label">Nombre del Producto</label>
+                <input type="text" class="form-control" id="nombreProducto" 
+                       th:field="*{nombreProducto}" required>
+            </div>
+            
+            <div class="mb-3">
+                <label for="precio" class="form-label">Precio</label>
+                <input type="number" step="0.01" class="form-control" id="precio" 
+                       th:field="*{precio}" required>
+            </div>
+            
+            <div class="mb-3">
+                <label for="descuento" class="form-label">Descuento (%)</label>
+                <input type="number" class="form-control" id="descuento" 
+                       th:field="*{descuento}" required>
+            </div>
+            
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="vendido" 
+                       th:field="*{vendido}">
+                <label class="form-check-label" for="vendido">Vendido</label>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            <a href="/products" class="btn btn-secondary">Cancelar</a>
+        </form>
+    </div>
+    <footer class="bg-dark text-light py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>Nutrition Store</h5>
+                    <p>Tu tienda de confianza para productos nutricionales</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Enlaces Rápidos</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="/nutrition-store/src/main/resources/templates/products/product-form.html" class="text-light">Productos</a></li>
+                        <li><a href="/nutrition-store/src/main/resources/templates/aboutus.html" class="text-light">Sobre Nosotros</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Contacto</h5>
+                    <ul class="list-unstyled">
+                        <li>Email: info@nutritionstore.com</li>
+                        <li>Teléfono: (123) 456-7890</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="../../static/js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
